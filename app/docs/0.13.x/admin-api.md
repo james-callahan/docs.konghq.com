@@ -425,6 +425,35 @@ HTTP 200 OK
 
 ---
 
+### Update Or Create Service
+
+#### Endpoint
+
+<div class="endpoint put">/services/{name or id}</div>
+
+Attributes | Description
+---:| ---
+`name or id`<br>**required** | The `id` **or** the `name` attribute of the Service to update.
+
+#### Request Body
+
+{{ page.service_body }}
+
+If a Service with the given name or id exists, the request updates it with the payload.
+If it doesn't exist, a new one will be created using the payload and the given id or name.
+
+Notice that passing a name on the url and a different name on the payload is not allowed.
+
+#### Response
+
+```
+HTTP 201 Created or HTTP 200 OK
+```
+
+See POST and PATCH responses.
+
+---
+
 ### Delete Service
 
 #### Endpoint
@@ -638,7 +667,35 @@ HTTP 200 OK
 ```json
 {{ page.service_json }}
 ```
+---
 
+### Update or create Route
+
+#### Endpoint
+
+<div class="endpoint put">/routes/{id}</div>
+
+Attributes | Description
+---:| ---
+`id`<br>**required** | The `id` attribute of the Route to update.
+
+#### Request Body
+
+{{ page.route_body }}
+
+If a route with the given id exists, the request updates it
+with the payload. If it does not exist, a new route
+will be created using the payload and the given id.
+
+#### Response
+
+```
+HTTP 201 Created or HTTP 200 OK
+```
+
+```json
+{{ page.route_json }}
+```
 ---
 
 ### Delete Route
@@ -1063,18 +1120,20 @@ HTTP 200 OK
 
 #### Endpoint
 
-<div class="endpoint put">/consumers/</div>
+<div class="endpoint put">/consumers/{username or id}</div>
+
+Attributes | Description
+---:| ---
+`username or id`<br>**required** | The unique identifier **or** the username of the consumer to update
 
 #### Request Body
 
 {{ page.consumer_body }}
 
-The behavior of `PUT` endpoints is the following: if the request payload **does
-not** contain an entity's primary key (`id` for Consumers), the entity will be
-created with the given payload. If the request payload **does** contain an
-entity's primary key, the payload will "replace" the entity specified by the
-given primary key. If the primary key is **not** that of an existing entity, `404
-NOT FOUND` will be returned.
+If a Consumer with the given username or id exists, the request updates it with the payload.
+If it doesn't exist, a new one will be created using the payload and the given id or username.
+
+Notice that passing a username on the url and a different username on the payload is not allowed.
 
 #### Response
 
